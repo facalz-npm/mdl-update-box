@@ -1,0 +1,19 @@
+{
+  "name": "mdl-update-box",
+  "version": "1.0.0",
+  "description": "📺 Webscrap to show your last updates in MyDramaList.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/facalz-npm/mdl-update-box.git"
+  },
+  "author": "facalz <facal.git@gmail.com>",
+  "license": "APACHE-2.0",
+  "homepage": "https://github.com/facalz-npm/mdl-update-box#readme",
+  "dependencies": {
+    "@octokit/rest": "^19.0.4",
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.0.2"
+  }
+}
