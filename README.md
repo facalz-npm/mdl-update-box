@@ -27,10 +27,11 @@ const main = require('mdl-update-box');
 const {
     GIST_ID: gistId,
     GH_TOKEN: githubToken,
-    USER: user
+    USER: user,
+    TITLE: title
 } = process.env;
 
-main(user, gistId, githubToken);
+main(user, title, gistId, githubToken);
 ```
 
 ## Environment secrets
@@ -38,3 +39,4 @@ main(user, gistId, githubToken);
 - **GIST_ID:** The ID portion from your gist url: https://gist.github.com/facalz/ `c7ecf280a4fc2214a85cef64896e020f`
 - **GH_TOKEN:** The GitHub token generated above.
 - **USER:** Your user in [MyDramaList](https://mydramalist.com).
+- **TITLE:** Title.
