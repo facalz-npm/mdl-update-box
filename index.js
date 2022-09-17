@@ -3,7 +3,12 @@ const cheerio = require('cheerio');
 const { Octokit } = require('@octokit/rest');
 require('dotenv/config');
 
-async function main(user, gistId, githubToken) {
+async function main(user, title, gistId, githubToken) {
+
+    if (!user || !title || !gistId || !githubToken) {
+        console.log('Invalid configuration! To know more: https://github.com/facalz-npm/mdl-update-box#readme');
+        return process.exit(1);
+    };
 
     const octokit = new Octokit({
         auth: `token ${githubToken}`
@@ -145,13 +150,12 @@ async function main(user, gistId, githubToken) {
         for (let i = 0; i < list.length; i++) {
             resume.push(`${truncate(list[i].name, 25).padEnd(25)} ${list[i].stats.padEnd(13)} ${list[i].episodes.padStart(5)} ${list[i].date.padStart(12)}`);
         };
-        resume.join('\n');
+        return resume.join('\n');
     };
 
     try {
         var data = await scrap(user);
-        var desc = '🔹 List Updates | MyDramaList';
-        updateGist(data, desc);
+        updateGist(data, title);
     } catch (error) {
         console.log('Something went error!', error);
     };
