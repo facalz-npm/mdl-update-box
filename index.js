@@ -1,6 +1,8 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const { Octokit } = require('@octokit/rest');
+const {
+    Octokit
+} = require('@octokit/rest');
 require('dotenv/config');
 
 async function main(user, title, gistId, githubToken) {
@@ -97,7 +99,7 @@ async function main(user, title, gistId, githubToken) {
 
             const stats = regex.exec(array[i].stats);
 
-            if (stats[1] == 'Currently watching') stats[1] = 'Watching'
+            if (stats[1] == 'Currently watching') stats[1] = 'Watching';
 
             if (movie) {
                 if (stats[1]) {
@@ -157,7 +159,7 @@ async function main(user, title, gistId, githubToken) {
         var data = await scrap(user);
         updateGist(data, title);
     } catch (error) {
-        console.log('Something went error!', error);
+        console.log('Something went error! ', error);
     };
 };
 
