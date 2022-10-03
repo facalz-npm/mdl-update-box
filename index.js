@@ -170,8 +170,8 @@ async function main(gistId, githubToken, user, title) {
 
     try {
         var data = await scrap(user);
-        // updateGist(data, title);
-        console.log(data)
+        updateGist(data, title);
+        console.log(data);
     } catch (error) {
         console.log('Something went error! ', error);
     };

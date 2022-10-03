@@ -1,6 +1,6 @@
 {
   "name": "mdl-update-box",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "📺 Webscrap to show your last updates in MyDramaList.",
   "main": "index.js",
   "repository": {
