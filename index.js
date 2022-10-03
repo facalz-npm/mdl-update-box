@@ -5,12 +5,14 @@ const {
 } = require('@octokit/rest');
 require('dotenv/config');
 
-async function main(user, title, gistId, githubToken) {
+async function main(gistId, githubToken, user, title) {
 
-    if (!user || !title || !gistId || !githubToken) {
+    if (!user || !gistId || !githubToken) {
         console.log('Invalid configuration! To know more: https://github.com/facalz-npm/mdl-update-box#readme');
         return process.exit(1);
     };
+
+    if (!title) title = '🔹 List Updates | MyDramaList';
 
     const octokit = new Octokit({
         auth: `token ${githubToken}`

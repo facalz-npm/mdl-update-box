@@ -10,7 +10,10 @@
 ## Installation
 
 ```sh-session
+//npm
 npm install mdl-update-box
+
+//yarn
 yarn add mdl-update-box
 ```
 
@@ -31,7 +34,7 @@ const {
     TITLE: title
 } = process.env;
 
-main(user, title, gistId, githubToken);
+main(gistId, githubToken, user, title);
 ```
 
 ## Environment secrets
@@ -39,4 +42,4 @@ main(user, title, gistId, githubToken);
 - **GIST_ID:** The ID portion from your gist url: https://gist.github.com/facalz/ `c7ecf280a4fc2214a85cef64896e020f`
 - **GH_TOKEN:** The GitHub token generated above.
 - **USER:** Your user in [MyDramaList](https://mydramalist.com).
-- **TITLE:** Title.
+- **TITLE:** Title for gist (Optional).
