@@ -93,6 +93,7 @@ async function main(user, title, gistId, githubToken) {
             } else {
                 episodesFixed = $$('.hidden-sm-down:nth-child(1) .list .list-item:nth-child(3)').first().text().replace(/^.*?(?=:)\:(\ \#|\ \ |\ )/gm, '');
                 episodes = episodesFixed.length;
+                movie = false;
             };
 
             const regex = new RegExp('(Currently watching).([0-9]*\/[0-9]{' + episodes + '})([0-9a-z ]*)|(Completed|Plan to watch|On-hold|Dropped)([0-9a-z ]*)|(Currently watching)([0-9a-z ]*)');
@@ -100,64 +101,75 @@ async function main(user, title, gistId, githubToken) {
             const stats = regex.exec(array[i].stats);
 
             if (stats[1] == 'Currently watching') stats[1] = 'Watching';
+            if (stats[6] == 'Currently watching') stats[6] = 'Watching';
 
             if (movie) {
-                if (stats[1]) {
-                    list.push({
-                        name: name,
-                        stats: stats[1],
-                        episodes: stats[2],
-                        date: stats[3]
-                    });
-                } else if (stats[4]) {
-                    if (stats[4] == 'Completed') list.push({
-                        name: name,
-                        stats: stats[4],
-                        episodes: `${episodesFixed}/${episodesFixed}`,
-                        date: stats[5]
-                    });
-                    else list.push({
-                        name: name,
-                        stats: stats[4],
-                        episodes: `0/${episodesFixed}`,
-                        date: stats[5]
-                    });
-                };
-            } else if (stats[7]) {
-                list.push({
-                    name: name,
-                    stats: stats[6],
-                    episodes: `0/${episodesFixed}`,
-                    date: stats[7]
-                });
-            } else if (stats[1]) {
-                list.push({
+                if (stats[1]) list.push({
                     name: name,
                     stats: stats[1],
                     episodes: stats[2],
                     date: stats[3]
                 });
-            } else if (stats[4]) {
-                list.push({
+
+                else if (stats[4] == 'Completed') list.push({
+                    name: name,
+                    stats: stats[4],
+                    episodes: `${episodesFixed}/${episodesFixed}`,
+                    date: stats[5]
+                });
+
+                else if (stats[6] == 'Watching') list.push({
+                    name: name,
+                    stats: stats[6],
+                    episodes: `0/${episodesFixed}`,
+                    date: stats[7]
+                });
+
+                else list.push({
+                    name: name,
+                    stats: stats[4],
+                    episodes: `0/${episodesFixed}`,
+                    date: stats[5]
+                });
+
+            } else {
+                if (stats[1] == 'Watching') list.push({
+                    name: name,
+                    stats: stats[1],
+                    episodes: stats[2],
+                    date: stats[3]
+                });
+
+                else if (stats[4] == 'Completed') list.push({
+                    name: name,
+                    stats: stats[4],
+                    episodes: `${episodesFixed}/${episodesFixed}`,
+                    date: stats[5]
+                });
+
+                else list.push({
                     name: name,
                     stats: stats[4],
                     episodes: `0/${episodesFixed}`,
                     date: stats[5]
                 });
             };
+
+
         };
 
         var resume = [];
 
         for (let i = 0; i < list.length; i++) {
-            resume.push(`${truncate(list[i].name, 25).padEnd(25)} ${list[i].stats.padEnd(13)} ${list[i].episodes.padStart(5)} ${list[i].date.padStart(12)}`);
+            resume.push(`${truncate(list[i].name, 23).padEnd(23)} ${list[i].stats.padEnd(13)} ${list[i].episodes.padStart(5)} ${list[i].date.padStart(14)}`);
         };
         return resume.join('\n');
     };
 
     try {
         var data = await scrap(user);
-        updateGist(data, title);
+        // updateGist(data, title);
+        console.log(data)
     } catch (error) {
         console.log('Something went error! ', error);
     };
