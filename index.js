@@ -58,6 +58,13 @@ async function main(gistId, githubToken, user, title) {
         const data = await axios.get('https://mydramalist.com/profile/' + user).then((res) => res.data);
         const $ = cheerio.load(data);
 
+        const check = $('.profile-header .hidden-sm-down h1').first().text();
+
+        if (!check) {
+            console.log('Invalid user!');
+            return process.exit(1);
+        };
+
         function lastUpdate() {
             return new Promise((resolve, reject) => {
                 const list = [];
@@ -135,6 +142,7 @@ async function main(gistId, githubToken, user, title) {
                 });
 
             } else {
+
                 if (stats[1] == 'Watching') list.push({
                     name: name,
                     stats: stats[1],
@@ -155,9 +163,8 @@ async function main(gistId, githubToken, user, title) {
                     episodes: `0/${episodesFixed}`,
                     date: stats[5]
                 });
+
             };
-
-
         };
 
         var resume = [];
