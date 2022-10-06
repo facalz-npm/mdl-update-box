@@ -177,6 +177,7 @@ async function main(gistId, githubToken, user, title) {
 
     try {
         var data = await scrap(user);
+        if (!data) data = 'Nothing around here...';
         updateGist(data, title);
         console.log(data);
     } catch (error) {
